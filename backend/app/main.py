@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 from app.core.config import settings
-from app.api.v1.endpoints import auth, trips
+from app.api.v1.endpoints import auth, trips, pod
 
 app = FastAPI(
-    title=settings.PROJECT_NAME,
+    title="FleetTroops — Company A POD Capture & Billing System",
     version=settings.VERSION,
     description="Proof of Delivery (POD) Capture & Billing Automation System for Company A, Chhatrapati Sambhajinagar"
 )
@@ -18,9 +20,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount local upload directory for serving POD photos to billing executives
+os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads")
+
 # API Routers
 app.include_router(auth.router, prefix=settings.API_V1_STR)
 app.include_router(trips.router, prefix=settings.API_V1_STR)
+app.include_router(pod.router, prefix=settings.API_V1_STR)
 
 @app.get("/health", tags=["Health"])
 async def health_check():
