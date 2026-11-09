@@ -11,7 +11,7 @@ async def test_retake_circuit_breaker_capped_at_two(db_session: AsyncSession, tm
     After 2 retakes, a 3rd failure must transition the trip to NEEDS_REVIEW
     to avoid trapping the driver at the consignee gate.
     """
-    dummy_image = tmp_path / "test_pod.jpg"
+    dummy_image = tmp_path / "STAMP_MISSING.jpg"
     dummy_image.write_bytes(b"dummy image data")
 
     # 1. Create a trip that has already undergone 1 retake
