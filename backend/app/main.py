@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 from app.core.config import settings
-from app.api.v1.endpoints import auth, trips, pod
+from app.api.v1.endpoints import auth, trips, pod, billing, dashboard
 
 app = FastAPI(
     title="FleetTroops — Company A POD Capture & Billing System",
@@ -28,6 +28,8 @@ app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads"
 app.include_router(auth.router, prefix=settings.API_V1_STR)
 app.include_router(trips.router, prefix=settings.API_V1_STR)
 app.include_router(pod.router, prefix=settings.API_V1_STR)
+app.include_router(billing.router, prefix=settings.API_V1_STR)
+app.include_router(dashboard.router, prefix=settings.API_V1_STR)
 
 @app.get("/health", tags=["Health"])
 async def health_check():
