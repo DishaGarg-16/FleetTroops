@@ -1,0 +1,63 @@
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+
+# Node & Frontend
+node_modules/
+.pnp
+.pnp.js
+coverage/
+dist/
+build/
+.cache/
+
+# Databases & local storage
+*.sqlite
+*.sqlite3
+*.db
+uploads/
+storage/
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Private Candidate Notes & Logs (Brief compliance: keep notes private)
+DECISIONS_LOG.md
+
