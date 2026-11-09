@@ -1,8 +1,8 @@
 # Technical Design Document (TDD)
 **Project**: FleetTroops — Proof-of-Delivery (POD) Capture & Billing System  
 **Client**: Company A, Chhatrapati Sambhajinagar, Maharashtra  
-**GitHub URL**: *(Add your repository URL here)*  
-**Live Demo URL**: *(Add your deployed Render / Hugging Face Spaces URL here)*  
+**GitHub URL**: https://github.com/DishaGarg-16/FleetTroops
+**Live Demo URL**: https://fleettroops-gfac.onrender.com/
 
 ---
 

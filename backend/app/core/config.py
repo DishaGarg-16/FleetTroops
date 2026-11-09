@@ -16,7 +16,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite+aiosqlite:///./pod_system.db"
     
     # AI Engine
+    LLM_PROVIDER: str = "gemini"
     GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-1.5-flash"
     USE_MOCK_AI: bool = True  # Automatically falls back to deterministic rule engine if no key
     
     # CORS
@@ -32,4 +34,3 @@ class Settings(BaseSettings):
 settings = Settings()
 
 os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-

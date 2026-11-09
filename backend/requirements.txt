@@ -2,6 +2,7 @@ fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
 pydantic>=2.10.0
 pydantic-settings>=2.6.0
+pydantic-ai>=0.0.18
 python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.4
 python-multipart>=0.0.17
@@ -10,6 +11,6 @@ sqlalchemy>=2.0.36
 httpx>=0.28.0
 pillow>=11.0.0
 google-genai>=0.1.1
+greenlet>=3.1.1
 pytest>=8.3.0
 pytest-asyncio>=0.24.0
-

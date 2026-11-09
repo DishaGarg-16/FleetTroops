@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, CheckCircle2, AlertTriangle, RefreshCw, Volume2, Wifi, WifiOff, MapPin } from 'lucide-react';
 import { compressImage } from '../utils/compression';
-import { speakPrompt } from '../utils/speech';
+import { speakPrompt, playChime } from '../utils/speech';
 import { saveOfflinePOD, getPendingOfflinePODs, removeOfflinePOD } from '../utils/offlineQueue';
 
 export function DriverCapture({ user }) {
@@ -61,7 +61,6 @@ export function DriverCapture({ user }) {
         const data = await res.json();
         setTrips(data.trips || []);
         if (data.trips?.length > 0) {
-          // Select first pending/retake trip, or default to first
           const active = data.trips.find(t => t.status === 'PENDING_POD' || t.status === 'RETAKE_REQUESTED') || data.trips[0];
           setSelectedTrip(active);
         }
@@ -161,7 +160,7 @@ export function DriverCapture({ user }) {
     const data = await res.json();
     setResultData(data);
 
-    // Speak bilingual audio prompt based on AI verdict
+    // Speak bilingual audio prompt & chime based on AI verdict
     const promptToSpeak = language === 'mr' ? data.audio_prompt_mr : data.audio_prompt_hi;
     speakPrompt(promptToSpeak, language);
 
@@ -178,7 +177,7 @@ export function DriverCapture({ user }) {
 
   return (
     <div className="driver-screen">
-      {/* Hidden native camera input with environment camera constraint */}
+      {/* Hidden native camera input */}
       <input
         type="file"
         ref={fileInputRef}
@@ -222,7 +221,7 @@ export function DriverCapture({ user }) {
         </div>
       </div>
 
-      {/* Active Trip Banner - Clear vehicle plate, route & consignee */}
+      {/* Active Trip Banner */}
       {selectedTrip && (
         <div className="trip-banner">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -290,9 +289,9 @@ export function DriverCapture({ user }) {
               <AlertTriangle size={32} color="#dc2626" />
               <div>
                 <strong style={{ color: '#dc2626', fontSize: '1.1rem' }}>
-                  {language === 'mr' ? 'पुन्हा फोटो काढा (Retake 1/2)' : 'दोबारा फोटो लें (Retake 1/2)'}
+                  {language === 'mr' ? 'पुन्हा फोटो काढा (Retake)' : 'दोबारा फोटो लें (Retake)'}
                 </strong>
-                <p style={{ fontSize: '0.85rem' }}>
+                <p style={{ fontSize: '0.85rem', color: '#dc2626', fontWeight: 500 }}>
                   {resultData?.remarks || 'Consignee stamp not visible'}
                 </p>
               </div>
@@ -328,7 +327,7 @@ export function DriverCapture({ user }) {
         </div>
       )}
 
-      {/* Big One-Touch Camera Button for Low-Literacy Drivers */}
+      {/* Big One-Touch Camera Button */}
       <div className="capture-area">
         <button 
           className={`big-camera-btn ${statusState === 'RETAKE' ? 'btn-retake' : ''}`}
@@ -388,4 +387,3 @@ export function DriverCapture({ user }) {
     </div>
   );
 }
-

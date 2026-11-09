@@ -27,7 +27,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 # Copy backend requirements and install into system Python
 COPY backend/requirements.txt ./backend/
-RUN uv pip install --system --no-cache -r backend/requirements.txt greenlet
+RUN uv pip install --system --no-cache -r backend/requirements.txt
 
 # Copy backend application source
 COPY backend/ ./backend/
@@ -47,4 +47,3 @@ EXPOSE 8000
 
 # Start FastAPI serving both API routes and static frontend
 CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
