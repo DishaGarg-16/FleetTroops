@@ -31,6 +31,11 @@ app.include_router(pod.router, prefix=settings.API_V1_STR)
 app.include_router(billing.router, prefix=settings.API_V1_STR)
 app.include_router(dashboard.router, prefix=settings.API_V1_STR)
 
+# Production Docker Frontend Mount (Serves single container SPA)
+static_dir = os.path.join(os.path.dirname(__file__), "..", "static")
+if os.path.exists(static_dir):
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="frontend")
+
 @app.get("/health", tags=["Health"])
 async def health_check():
     return {
